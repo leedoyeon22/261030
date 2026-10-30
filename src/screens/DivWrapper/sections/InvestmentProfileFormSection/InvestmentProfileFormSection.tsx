@@ -16,7 +16,7 @@ type GoalOption = {
   selected?: boolean;
 };
 
-type StyleOption = {
+export type InvestmentProfileSelection = {\n  experience: string;\n  goal: string;\n  styles: string[];\n};\n\ntype StyleOption = {
   title: string;
   icon: string;
   selected?: boolean;
@@ -107,7 +107,7 @@ const styleOptions: StyleOption[] = [
   },
 ];
 
-export const InvestmentProfileFormSection = (): JSX.Element => {
+export const InvestmentProfileFormSection = ({\n  onSelectionChange,\n}: {\n  onSelectionChange: (selection: InvestmentProfileSelection) => void;\n}): JSX.Element => {
   const [experience, setExperience] = useState(
     experienceOptions.findIndex((option) => option.selected),
   );
@@ -151,7 +151,7 @@ export const InvestmentProfileFormSection = (): JSX.Element => {
                   key={option.title}
                   type="button"
                   variant="ghost"
-                  onClick={() => setExperience(index)}
+                  onClick={() => {\n                    setExperience(index);\n                    onSelectionChange({ experience: option.title, goal: goalOptions[goal].title, styles: styles.map((styleIndex) => styleOptions[styleIndex].title) });\n                  }}
                   className={`flex w-full items-center justify-between rounded-xl border bg-white p-4 text-left shadow-[0px_1px_2px_#0000000d] hover:bg-white ${
                     isSelected ? "border-[#0059b9]" : "border-[#c1c6d64c]"
                   }`}
@@ -195,7 +195,7 @@ export const InvestmentProfileFormSection = (): JSX.Element => {
                   key={option.title}
                   type="button"
                   variant="ghost"
-                  onClick={() => setGoal(index)}
+                  onClick={() => {\n                    setGoal(index);\n                    onSelectionChange({ experience: experienceOptions[experience].title, goal: option.title, styles: styles.map((styleIndex) => styleOptions[styleIndex].title) });\n                  }}
                   className={`flex min-h-[85px] flex-col items-start justify-between rounded-xl border bg-white p-3 text-left shadow-[0px_1px_2px_#0000000d] hover:bg-white ${
                     isSelected ? "border-[#0059b9]" : "border-[#c1c6d64c]"
                   }`}
@@ -238,7 +238,7 @@ export const InvestmentProfileFormSection = (): JSX.Element => {
                 key={option.title}
                 type="button"
                 variant="ghost"
-                onClick={() => toggleStyle(index)}
+                onClick={() => {\n                  const nextStyles = styles.includes(index) ? styles.filter((selectedIndex) => selectedIndex !== index) : [...styles, index];\n                  setStyles(nextStyles);\n                  onSelectionChange({ experience: experienceOptions[experience].title, goal: goalOptions[goal].title, styles: nextStyles.map((styleIndex) => styleOptions[styleIndex].title) });\n                }}
                 className={`inline-flex min-h-9 items-center gap-1.5 rounded-full border bg-white px-3.5 py-2 shadow-[0px_1px_2px_#0000000d] hover:bg-white ${
                   isSelected
                     ? "border-[#0059b9] text-[#0059b9]"
