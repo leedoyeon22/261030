@@ -1,0 +1,1 @@
+export { InvestmentProfileIntroSection } from "./InvestmentProfileIntroSection";
