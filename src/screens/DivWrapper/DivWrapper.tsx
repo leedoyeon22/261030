@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {ArrowLeft, Bell, Search, ChevronRight, Home, Compass, Users, UserRound, Sparkles, TrendingUp, Heart, MessageCircle, ShieldCheck, CheckCircle2, CreditCard, BarChart3, Settings, Send, Plus, Minus, Star} from 'lucide-react';
+import {ArrowLeft, Bell, Search, ChevronRight, Home, Compass, Users, UserRound, Sparkles, TrendingUp, Heart, MessageCircle, ShieldCheck, CheckCircle2, BarChart3, Send, Plus, Minus, Star} from 'lucide-react';
 import './prototype.css';
 type Stock={name:string;symbol:string;price:number;change:string;desc:string};
 const stocks:Stock[]=[{name:'엔비디아',symbol:'NVDA',price:189.24,change:'+2.84%',desc:'AI 반도체 및 데이터센터'},{name:'애플',symbol:'AAPL',price:265.15,change:'+1.23%',desc:'글로벌 소비자 기술 기업'},{name:'테슬라',symbol:'TSLA',price:437.60,change:'-0.87%',desc:'전기차 및 에너지 기술'},{name:'마이크론',symbol:'MU',price:128.70,change:'+3.18%',desc:'메모리 반도체'}];
@@ -7,7 +7,7 @@ const indices=[{name:'S&P 500',value:'7,722.60',change:'+0.83%'},{name:'나스�
 const fmt=(n:number)=>n.toLocaleString('ko-KR',{minimumFractionDigits:2,maximumFractionDigits:2});
 export const DivWrapper=():JSX.Element=>{
 const [page,setPage]=useState('start');const [history,setHistory]=useState<string[]>([]);const [stock,setStock]=useState<Stock>(stocks[0]);const [idx,setIdx]=useState(indices[0]);const [qty,setQty]=useState(1);const [filter,setFilter]=useState('전체');const [liked,setLiked]=useState<string[]>([]);const [tab,setTab]=useState('인기');const [answers,setAnswers]=useState<string[]>([]);const [notifications,setNotifications]=useState(true);const [query,setQuery]=useState('');const [posts,setPosts]=useState([{id:'p1',author:'주식하는고양이',text:'엔비디아 실적 발표, 여러분은 어떻게 보시나요?',likes:128},{id:'p2',author:'장기투자러',text:'시장의 소음보다 기업의 장기 성장성을 보고 있어요.',likes:82}]);const [draft,setDraft]=useState('');const [saved,setSaved]=useState<string[]>([]);
-const go=(p:string)=>{setHistory(h=>[...h,page]);setPage(p);window.scrollTo(0,0)};const back=()=>{setPage(history.at(-1)||'home');setHistory(h=>h.slice(0,-1));window.scrollTo(0,0)};
+const go=(p:string)=>{setHistory(h=>[...h,page]);setPage(p);window.scrollTo(0,0)};const back=()=>{setPage(history[history.length-1]||'home');setHistory(h=>h.slice(0,-1));window.scrollTo(0,0)};
 const choose=(s:Stock,p='detail')=>{setStock(s);go(p)};
 const btn=(text:string,fn:()=>void,secondary=false)=><button className={'action '+(secondary?'secondary':'')} onClick={fn}>{text}</button>;
 const row=(name:string,sub:string,fn:()=>void,right?:string)=><button className="item" onClick={fn}><span><strong>{name}</strong><small>{sub}</small></span><span className="itemright">{right||<ChevronRight size={18}/>}</span></button>;
