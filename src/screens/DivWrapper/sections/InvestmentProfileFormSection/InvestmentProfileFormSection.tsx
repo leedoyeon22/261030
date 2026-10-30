@@ -238,7 +238,6 @@ export const InvestmentProfileFormSection = (): JSX.Element => {
                 key={option.title}
                 type="button"
                 variant="ghost"
-                h-auto
                 onClick={() => toggleStyle(index)}
                 className={`inline-flex min-h-9 items-center gap-1.5 rounded-full border bg-white px-3.5 py-2 shadow-[0px_1px_2px_#0000000d] hover:bg-white ${
                   isSelected
