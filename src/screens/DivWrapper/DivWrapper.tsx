@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {ArrowLeft, Bell, Search, ChevronRight, Home, Compass, Users, UserRound, Sparkles, TrendingUp, Heart, MessageCircle, ShieldCheck, CheckCircle2, CreditCard, BarChart3, Settings, Send, Plus, Minus, Star} from 'lucide-react';
+import {ArrowLeft, Bell, Search, ChevronRight, Home, Compass, Users, UserRound, Sparkles, TrendingUp, Heart, MessageCircle, ShieldCheck, CheckCircle2, BarChart3, Send, Plus, Minus, Star} from 'lucide-react';
 import './prototype.css';
 type Stock={name:string;symbol:string;price:number;change:string;desc:string};
 const stocks:Stock[]=[{name:'엔비디아',symbol:'NVDA',price:189.24,change:'+2.84%',desc:'AI 반도체 및 데이터센터'},{name:'애플',symbol:'AAPL',price:265.15,change:'+1.23%',desc:'글로벌 소비자 기술 기업'},{name:'테슬라',symbol:'TSLA',price:437.60,change:'-0.87%',desc:'전기차 및 에너지 기술'},{name:'마이크론',symbol:'MU',price:128.70,change:'+3.18%',desc:'메모리 반도체'}];
