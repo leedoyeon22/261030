@@ -132,14 +132,6 @@ export const InvestmentProfileFormSection = ({
     ),
   );
 
-  const toggleStyle = (index: number) => {
-    setStyles((current) =>
-      current.includes(index)
-        ? current.filter((selectedIndex) => selectedIndex !== index)
-        : [...current, index],
-    );
-  };
-
   return (
     <section className="flex w-full flex-col items-start gap-8 px-5 pt-0">
       <section className="flex w-full flex-col items-start gap-3">
