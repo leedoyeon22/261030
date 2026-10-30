@@ -32,3 +32,31 @@
 
 ### 검증
 `npm run build`의 TypeScript 검사 및 Vite 빌드 통과. 브라우저 조작 도구의 주소 확인 오류로 수동 화면/클릭 검증은 미완료입니다.
+
+
+## Supabase 연결
+
+### 서버에 적용할 설정
+1. Supabase SQL Editor에서 `supabase/migrations/202610300001_investor_data.sql` 전체를 한 번 실행합니다. 세 테이블과 사용자별 RLS 정책, 저장/조회 함수를 생성합니다. 이미 실행한 SQL은 다시 실행하지 않습니다.
+2. Authentication → URL Configuration에서 실제 앱 주소를 Site URL과 Redirect URLs에 등록합니다. 개발 환경은 `http://localhost:5173/`를 추가합니다. 앱이 하위 경로로 배포된다면 그 경로까지 포함합니다.
+3. `.env.example`을 참고해 `.env.local`에 프로젝트 URL과 Publishable key를 넣습니다. 배포 서비스에도 같은 두 환경변수를 등록하고 다시 빌드/배포합니다. `secret` 또는 `service_role` 키를 사용하지 않습니다.
+
+```env
+VITE_SUPABASE_URL=https://sfaocdtifsriwbhuxlah.supabase.co
+VITE_SUPABASE_PUBLISHABLE_KEY=your_publishable_key
+```
+
+### 앱에서 사용하기
+MY → 이메일 입력 → 로그인 링크 받기 → 이메일의 링크 열기 → MY로 이동합니다.
+‘계정에 저장’은 현재 브라우저의 관심 종목, 투자 성향, 모의 주문을 계정의 서버 내역으로 저장합니다. 저장 전 덮어쓰기를 확인하며, 자동 업로드는 하지 않습니다.
+‘저장 내역 불러오기’는 서버의 내용을 현재 브라우저 내역으로 바꿉니다. 로그아웃해도 브라우저의 체험 내역은 유지됩니다. 공용 기기에서는 이 점을 유의해주세요.
+커뮤니티 게시글과 좋아요는 이번 데이터베이스 연결 범위에 포함되지 않습니다.
+
+### 데이터 및 검증
+- `investor_profiles`: 사용자별 투자 성향
+- `investor_watchlist`: 사용자별 관심 종목
+- `paper_orders`: 사용자별 모의 주문 (실제 체결·결제 없음)
+- RLS로 로그인한 사용자의 행만 접근 가능. 미로그인 접근 금지.
+- 전체 저장은 단일 트랜잭션이고 오류 발생 시 모두 롤백됩니다. 계정 전환 중 다른 계정으로 잘못 저장하는 요청도 차단합니다.
+- `npm run test:db`: 실제 PostgreSQL 호환 엔진에서 계정 간 접근 차단, 저장/조회, 소수점 수량, 잘못된 입력의 원자적 롤백을 검사합니다.
+- Supabase API 주소·공개용 키 응답과 이메일 로그인 활성화 확인 완료. 원격 테이블은 아직 적용하지 않았으므로 실제 이메일 로그인 및 원격 저장 왕복은 미검증입니다.
