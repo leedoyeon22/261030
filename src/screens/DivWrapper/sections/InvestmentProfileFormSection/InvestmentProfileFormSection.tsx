@@ -151,7 +151,6 @@ export const InvestmentProfileFormSection = (): JSX.Element => {
                   key={option.title}
                   type="button"
                   variant="ghost"
-                  h-auto
                   onClick={() => setExperience(index)}
                   className={`flex w-full items-center justify-between rounded-xl border bg-white p-4 text-left shadow-[0px_1px_2px_#0000000d] hover:bg-white ${
                     isSelected ? "border-[#0059b9]" : "border-[#c1c6d64c]"
@@ -196,7 +195,6 @@ export const InvestmentProfileFormSection = (): JSX.Element => {
                   key={option.title}
                   type="button"
                   variant="ghost"
-                  h-auto
                   onClick={() => setGoal(index)}
                   className={`flex min-h-[85px] flex-col items-start justify-between rounded-xl border bg-white p-3 text-left shadow-[0px_1px_2px_#0000000d] hover:bg-white ${
                     isSelected ? "border-[#0059b9]" : "border-[#c1c6d64c]"
